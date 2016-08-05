@@ -12,15 +12,16 @@ post '/users' do
 
   p params[:user][:name]
   password = params[:user][:password]
-  password2 = params[:user][:password_confirmation]
+  # password2 = params[:user][:password_confirmation]
   @user = User.new(params[:user])
-  if password == password2
+  # if password == password2
+  if password
     @user = User.new(params[:user])
     if @user.save
       # session[:user_id] = @user.id
       redirect "/users/#{@user.id}"
     else
-      @errors
+      p @errors = @user.errors.full_messages
       erb :index
     end
   else
