@@ -8,10 +8,16 @@ end
 
 # create a new user
 post '/users' do
-  if params[:password] == params[:password2]
+  p params
+
+  p params[:user][:name]
+  password = params[:user][:password]
+  password2 = params[:user][:password_confirmation]
+  @user = User.new(params[:user])
+  if password == password2
     @user = User.new(params[:user])
     if @user.save
-      session[:user_id] = @user.id
+      # session[:user_id] = @user.id
       redirect "/users/#{@user.id}"
     else
       @errors
